@@ -56,11 +56,11 @@ export class Element extends Container {
     this.__config = null
 
     /**
-     * The modux application store
+     * The modux application databus
      * @type {Class}
      * @private
      */
-    this.__store = null
+    this.__databus = null
   }
 
   /**
@@ -96,7 +96,7 @@ export class Element extends Container {
     super.addChild( element )
     this.__children[ id ] = element
     element.__config = this.__config
-    element.__store = this.__store
+    element.__databus = this.__databus
     return this
   }
 
@@ -109,7 +109,7 @@ export class Element extends Container {
     let element = this.__children[ id ]
     super.removeChild( element )
     element.__config = null
-    element.__store = null
+    element.__databus = null
     delete this.__children[ id ]
     return this
   }

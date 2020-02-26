@@ -58,10 +58,10 @@ export class Shimmer extends Component {
    * @param {HTMLElement} parent The parent wrapper
    * @param {Module} module The parent module instance
    * @param {Config} config A Config class instance
-   * @param {Store} store A Store class instance
+   * @param {DataBus} databus A DataBus class instance
    */
-  constructor ( parent, module, config, store ) {
-    super( parent, module, config, store )
+  constructor ( parent, module, config, databus ) {
+    super( parent, module, config, databus )
 
     skipHello()
 
@@ -71,7 +71,7 @@ export class Shimmer extends Component {
      */
     this.stage = new Element()
     this.stage.__config = this.config
-    this.stage.__store = this.store
+    this.stage.__databus = this.databus
 
     /**
      * Holds the previous width and height of the element
