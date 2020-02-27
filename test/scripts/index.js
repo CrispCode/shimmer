@@ -2,18 +2,12 @@
 
 'use strict'
 
-import { Module, config, Router, logger } from '@crispcode/modux'
+import { Module, Router, logger } from '@crispcode/modux'
 
 import { LayoutComponent } from './components/layout'
 import { ShimmerComponent } from './components/shimmer'
 
 let initialize = () => {
-  config.set( 'core', window.config )
-
-  logger.enabled( config.get( 'core.debug' ) )
-
-  logger.info( 'Application start' )
-
   Router.setDynamicBase( true )
 
   // Create application
@@ -22,7 +16,10 @@ let initialize = () => {
     .addDependency( 'layout', LayoutComponent )
     .addDependency( 'shimmer', ShimmerComponent )
 
-  app.config.set( 'app', app )
+  logger.info( 'Application start' )
+  app.store.set( 'app', app )
+  app.store.set( 'core', window.config )
+  logger.enabled( app.store.get( 'core.debug' ) )
 
   // Start application
   app.bootstrap( document.querySelector( 'body' ), 'layout' )
