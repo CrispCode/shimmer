@@ -9,7 +9,7 @@ import { Tween } from './tween.js'
 import { Sprite } from '@pixi/sprite'
 import { AnimatedSprite } from '@pixi/sprite-animated'
 import { Text } from '@pixi/text'
-import { Graphics } from '@pixi/Graphics'
+import { Graphics } from '@pixi/graphics'
 import { BaseTexture, Texture } from '@pixi/core'
 
 export {
