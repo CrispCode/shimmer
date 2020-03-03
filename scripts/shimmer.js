@@ -57,11 +57,10 @@ export class Shimmer extends Component {
    * Creates an instance of Shimmer
    * @param {HTMLElement} parent The parent wrapper
    * @param {Module} module The parent module instance
-   * @param {Config} config A Config class instance
-   * @param {DataBus} databus A DataBus class instance
+   * @param {Store} store An instance of @crispcode/pushstore, see https://www.npmjs.com/package/@crispcode/pushstore
    */
-  constructor ( parent, module, config, databus ) {
-    super( parent, module, config, databus )
+  constructor ( parent, module, store ) {
+    super( parent, module, store )
 
     skipHello()
 
@@ -70,8 +69,7 @@ export class Shimmer extends Component {
      * @type {Element}
      */
     this.stage = new Element()
-    this.stage.__config = this.config
-    this.stage.__databus = this.databus
+    this.stage.__store = this.store
 
     /**
      * Holds the previous width and height of the element
