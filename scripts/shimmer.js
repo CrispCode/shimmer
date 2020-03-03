@@ -69,7 +69,6 @@ export class Shimmer extends Component {
      * @type {Element}
      */
     this.stage = new Element()
-    this.stage.__store = this.store
 
     /**
      * Holds the previous width and height of the element
