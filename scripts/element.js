@@ -62,11 +62,12 @@ export class Element extends Container {
    * @param {Number} to The end point for the Tween
    * @param {Number} step The step value for the Tween
    * @param {Function} oneach A listener which gets called on each Tween step
+   * @param {String} id An specific identifier to use in this element. If not defined, a random unique one will be used.
    * @return {Promise} The promise is resolved on tween end
    */
-  createTween ( from, to, step, oneach ) {
+  createTween ( from, to, step, oneach, id ) {
     return new Promise( ( resolve ) => {
-      let id = uid()
+      id = id || uid()
       let tween = new Tween( from, to, step )
       tween.end( () => {
         delete this.__tweens[ id ]
@@ -77,6 +78,18 @@ export class Element extends Container {
       }
       this.__tweens[ id ] = tween
     } )
+  }
+
+  /**
+   * Removes a tween from the element
+   * @param {String} id An specific identifier to used remove tweens from the element
+   */
+  removeTween ( id ) {
+    if ( id ) {
+      delete this.__tweens[ id ]
+    } else {
+      this.__tweens = {}
+    }
   }
 
   /**
