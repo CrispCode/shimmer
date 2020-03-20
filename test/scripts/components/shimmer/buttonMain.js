@@ -7,10 +7,7 @@ export class ButtonMain extends Button {
     super()
 
     let image = new Sprite( texture )
-
-    image.anchor.x = 0.5
-    image.anchor.y = 0.5
-
+    image.anchor.set( 0.5 )
     this.addChild( image )
 
     this.onMouseOver( () => {

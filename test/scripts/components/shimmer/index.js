@@ -35,7 +35,7 @@ export class ShimmerComponent extends Shimmer {
 
         this.__moons = {}
 
-        for ( let i = 0; i < 10; i++ ) {
+        for ( let i = 0; i < 1; i++ ) {
           let moon = new Moon( resources[ 'image2' ].texture )
           moon.setAngle( rnd( 0, 359 ) )
           moon.setRadius( rnd( 200, 500 ) )

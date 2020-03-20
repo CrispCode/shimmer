@@ -2,18 +2,37 @@
 
 'use strict'
 
-import { Component, loop } from '@crispcode/modux'
+import { Component, loop, logger } from '@crispcode/modux'
 
+import { autoDetectRenderer, Renderer, BatchRenderer } from '@pixi/core'
 import { Loader } from '@pixi/loaders'
 import { Ticker } from '@pixi/ticker'
-import { autoDetectRenderer, Renderer, BatchRenderer } from '@pixi/core'
 import { InteractionManager } from '@pixi/interaction'
-import { skipHello } from '@pixi/utils'
+import { skipHello, isWebGLSupported } from '@pixi/utils'
+
+// Canvas support
+import '@pixi/canvas-display'
+import { CanvasExtract } from '@pixi/canvas-extract'
+import { CanvasGraphicsRenderer } from '@pixi/canvas-graphics'
+import { CanvasMeshRenderer } from '@pixi/canvas-mesh'
+import '@pixi/canvas-particles'
+import { CanvasPrepare } from '@pixi/canvas-prepare'
+import { CanvasRenderer } from '@pixi/canvas-renderer'
+import '@pixi/canvas-sprite-tiling'
+import { CanvasSpriteRenderer } from '@pixi/canvas-sprite'
+import '@pixi/canvas-text'
+
+import { Element } from './element.js'
 
 Renderer.registerPlugin( 'interaction', InteractionManager )
 Renderer.registerPlugin( 'batch', BatchRenderer )
 
-import { Element } from './element.js'
+CanvasRenderer.registerPlugin( 'interaction', InteractionManager )
+CanvasRenderer.registerPlugin( 'extract', CanvasExtract )
+CanvasRenderer.registerPlugin( 'graphics', CanvasGraphicsRenderer )
+CanvasRenderer.registerPlugin( 'mesh', CanvasMeshRenderer )
+CanvasRenderer.registerPlugin( 'prepare', CanvasPrepare )
+CanvasRenderer.registerPlugin( 'sprite', CanvasSpriteRenderer )
 
 /**
  * This class is used to create the shimmer component
@@ -112,19 +131,30 @@ export class Shimmer extends Component {
     } )
 
     /**
-     * Stores the renderer
-     * @type {Renderer}
+     * Renderer initialization settings
+     * @type {Object}
+     * @private
      */
-    this.renderer = autoDetectRenderer( {
+    const rendererSettings = {
       view: this.element,
       transparent: true,
       antialias: true,
       resolution: window.devicePixelRatio || 1
-    } )
+    }
+
+    /**
+     * Stores the renderer
+     * @type {Renderer}
+     */
+    this.renderer = ( isWebGLSupported() ) ? autoDetectRenderer( rendererSettings ) : new CanvasRenderer( rendererSettings )
 
     this.renderer.resize( this.element.clientWidth, this.element.clientHeight )
 
     this.renderer.plugins.interaction.autoPreventDefault = false
+
+    if ( !isWebGLSupported() ) {
+      logger.warn( 'WebGL is not supported. Using Canvas fallback.' )
+    }
   }
 
   /**

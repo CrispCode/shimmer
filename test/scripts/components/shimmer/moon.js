@@ -2,16 +2,26 @@
 
 import { radians } from '@crispcode/modux'
 
-import { Element, Sprite } from './../../../../scripts'
+import { Element, Sprite, Graphics, Text } from './../../../../scripts'
 
 export class Moon extends Element {
   constructor ( texture ) {
     super()
 
     let image = new Sprite( texture )
+    image.anchor.set( 0.5 )
 
-    image.anchor.x = 0.5
-    image.anchor.y = 0.5
+    let border = new Graphics()
+    border.beginFill( 0xFF0000, 1 )
+    border.drawCircle( 0, 0, image.width / 2 + 5 )
+    border.endFill()
+    this.addChild( border )
+
+    this.addChild( image )
+
+    let text = new Text( 'X', { fill: 0xFFFFFF } )
+    text.anchor.set( 0.5 )
+    this.addChild( text )
 
     this.alpha = 0
 
@@ -22,8 +32,6 @@ export class Moon extends Element {
     this.__centerY = 0
 
     this.__rotating = false
-
-    this.addChild( image )
   }
 
   __move ( delta ) {
