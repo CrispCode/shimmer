@@ -137,7 +137,7 @@ export class Shimmer extends Component {
      */
     const rendererSettings = {
       view: this.element,
-      transparent: true,
+      backgroundAlpha: 0,
       antialias: true,
       resolution: window.devicePixelRatio || 1
     }

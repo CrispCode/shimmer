@@ -66,10 +66,9 @@ export class Moon extends Element {
     this.addElementChild( 'image', image )
   }
 
-  __move ( delta ) {
-    delta = delta || 1
-    this.x = this.__centerX + this.__radius * Math.cos( radians( this.__angle ) ) * delta
-    this.y = this.__centerY + this.__radius * Math.sin( radians( this.__angle ) ) * delta
+  __move () {
+    this.x = this.__centerX + this.__radius * Math.cos( radians( this.__angle ) )
+    this.y = this.__centerY + this.__radius * Math.sin( radians( this.__angle ) )
   }
 
   setCenter ( x, y ) {
@@ -99,11 +98,11 @@ export class Moon extends Element {
 
   tick ( delta ) {
     if ( this.__rotating ) {
-      this.__angle = this.__angle + this.__speed
+      this.__angle = this.__angle + this.__speed * delta
       if ( this.__angle === 360 ) {
         this.__angle = 0
       }
-      this.__move( delta )
+      this.__move()
     }
   }
 }

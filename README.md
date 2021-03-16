@@ -4,7 +4,7 @@ A PIXI.JS wrapper plugin for MODUX
 ## Installation
 
 ```
-npm install CrispCode/shimmer#v3.1.5 --save-dev
+npm install CrispCode/shimmer#v4.0.0 --save-dev
 ```
 
 ## Documentation & Testing
@@ -16,11 +16,7 @@ If you want to check functionality you can use `npm run test`
 
 ## Polyfill
 
-In order to support older versions of browsers, you can use polyfills:
-
-```
-    <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?flags=gated&features=default%2CMutationObserver%2CString.prototype.padStart%2Cconsole.info%2CNumber.isInteger%2CMath.sign"></script>
-```
+In order to support older versions of browsers, you can use [polyfill.io](https://polyfill.io)
 
 ## Shimmer classes
 

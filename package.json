@@ -1,11 +1,11 @@
 {
   "name": "shimmer",
-  "version": "3.1.5",
+  "version": "4.0.0",
   "description": "A PIXI.JS wrapper plugin for MODUX",
   "author": "Crisp Code ( contact@crispcode.ro )",
   "engines": {
-    "node": ">=8.0.0",
-    "npm": ">=5.0.0"
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
   },
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
@@ -16,38 +16,39 @@
     "url": "https://github.com/CrispCode/shimmer/issues"
   },
   "dependencies": {
-    "@pixi/canvas-display": "^5.3.3",
-    "@pixi/canvas-extract": "^5.3.3",
-    "@pixi/canvas-graphics": "^5.3.3",
-    "@pixi/canvas-mesh": "^5.3.3",
-    "@pixi/canvas-particles": "^5.3.3",
-    "@pixi/canvas-prepare": "^5.3.3",
-    "@pixi/canvas-renderer": "^5.3.3",
-    "@pixi/canvas-sprite": "^5.3.3",
-    "@pixi/canvas-sprite-tiling": "^5.3.3",
-    "@pixi/canvas-text": "^5.3.3",
-    "@pixi/core": "^5.3.3",
-    "@pixi/display": "^5.3.3",
-    "@pixi/graphics": "^5.3.3",
-    "@pixi/interaction": "^5.3.3",
-    "@pixi/loaders": "^5.3.3",
-    "@pixi/sprite": "^5.3.3",
-    "@pixi/sprite-animated": "^5.3.3",
-    "@pixi/text": "^5.3.3",
-    "@pixi/ticker": "^5.3.3",
-    "@pixi/utils": "^5.3.3"
+    "@pixi/canvas-display": "^6.0.0",
+    "@pixi/canvas-extract": "^6.0.0",
+    "@pixi/canvas-graphics": "^6.0.0",
+    "@pixi/canvas-mesh": "^6.0.0",
+    "@pixi/canvas-particles": "^6.0.0",
+    "@pixi/canvas-prepare": "^6.0.0",
+    "@pixi/canvas-renderer": "^6.0.0",
+    "@pixi/canvas-sprite": "^6.0.0",
+    "@pixi/canvas-sprite-tiling": "^6.0.0",
+    "@pixi/canvas-text": "^6.0.0",
+    "@pixi/core": "^6.0.0",
+    "@pixi/display": "^6.0.0",
+    "@pixi/graphics": "^6.0.0",
+    "@pixi/interaction": "^6.0.0",
+    "@pixi/loaders": "^6.0.0",
+    "@pixi/sprite": "^6.0.0",
+    "@pixi/sprite-animated": "^6.0.0",
+    "@pixi/text": "^6.0.0",
+    "@pixi/ticker": "^6.0.0",
+    "@pixi/utils": "^6.0.0"
   },
   "peerDependencies": {
-    "@crispcode/modux": "^4.1.8"
+    "@crispcode/modux": "^4.2.0"
   },
   "devDependencies": {
-    "@crispcode/modux": "^4.1.8",
+    "@crispcode/modux": "^4.2.0",
     "esdoc": "^1.1.0",
     "esdoc-standard-plugin": "^1.0.0"
   },
   "main": "./scripts/index.js",
   "scripts": {
     "test": "cd test && node ./../node_modules/.bin/modux dev",
+    "nowebgl": "open -a \"Google Chrome\" --args  -disable-webgl",
     "docs": "rm -rf ./docs && ./node_modules/.bin/esdoc && open ./docs/index.html"
   }
 }
