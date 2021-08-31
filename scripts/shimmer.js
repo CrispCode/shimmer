@@ -2,7 +2,7 @@
 
 'use strict'
 
-import { Component, loop, logger } from '@crispcode/modux'
+import { Component, extend, loop, logger } from '@crispcode/modux'
 
 import { autoDetectRenderer, Renderer, BatchRenderer } from '@pixi/core'
 import { Loader } from '@pixi/loaders'
@@ -47,17 +47,11 @@ export class Shimmer extends Component {
   }
 
   /**
-   * The renderer initialization options
+   * The initialization options for shimmer
    * @type {Object}
    */
   get settings () {
-    return {
-      autoDensity: false,
-      resolution: window.devicePixelRatio || 1,
-      backgroundAlpha: 0,
-      backgroundColor: 0x000000,
-      antialias: true
-    }
+    return {}
   }
 
   /**
@@ -149,14 +143,20 @@ export class Shimmer extends Component {
      * @type {Object}
      * @private
      */
-    const rendererSettings = {
+    const rendererSettings = extend( {
       view: this.element,
+      autoDensity: false,
+      backgroundAlpha: 0,
+      backgroundColor: 0x000000,
+      antialias: true,
+      resolution: window.devicePixelRatio || 1
+    }, {
       autoDensity: this.settings.autoDensity,
       backgroundAlpha: this.settings.backgroundAlpha,
       backgroundColor: this.settings.backgroundColor,
       antialias: this.settings.antialias,
       resolution: this.settings.resolution
-    }
+    } )
 
     /**
      * Stores the renderer
