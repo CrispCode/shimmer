@@ -47,6 +47,20 @@ export class Shimmer extends Component {
   }
 
   /**
+   * The renderer initialization options
+   * @type {Object}
+   */
+  get settings () {
+    return {
+      autoDensity: false,
+      resolution: window.devicePixelRatio || 1,
+      backgroundAlpha: 0,
+      backgroundColor: 0x000000,
+      antialias: true
+    }
+  }
+
+  /**
    * The method gets called whenever the container is resized
    * @param {Number} width The width of the container
    * @param {Number} height The height of the container
@@ -137,9 +151,11 @@ export class Shimmer extends Component {
      */
     const rendererSettings = {
       view: this.element,
-      backgroundAlpha: 0,
-      antialias: true,
-      resolution: window.devicePixelRatio || 1
+      autoDensity: this.settings.autoDensity,
+      backgroundAlpha: this.settings.backgroundAlpha,
+      backgroundColor: this.settings.backgroundColor,
+      antialias: this.settings.antialias,
+      resolution: this.settings.resolution
     }
 
     /**
