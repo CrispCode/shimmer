@@ -171,6 +171,16 @@ export class Shimmer extends Component {
     if ( !isWebGLSupported() ) {
       logger.warn( 'WebGL is not supported. Using Canvas fallback.' )
     }
+
+    this._onWheel = ( e ) => {
+      // Find the element targeted based on the hitTest
+      let target = this.renderer.plugins.interaction.hitTest( { x: e.offsetX, y: e.offsetY } )
+      if ( target && target.interactive ) {
+        e.preventDefault()
+        target.emit( 'mousewheel', e )
+      }
+    }
+    this.element.addEventListener( 'wheel', this._onWheel, { passive: false } )
   }
 
   /**
@@ -178,6 +188,7 @@ export class Shimmer extends Component {
    */
   __destroy () {
     super.__destroy()
+    this.element.removeEventListener( 'wheel', this._onWheel )
     this.__resizeWatcher = false
     if ( this.ticker.started ) {
       this.ticker.stop()

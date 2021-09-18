@@ -32,6 +32,13 @@ export class Moon extends Element {
     this.__centerY = 0
 
     this.__rotating = false
+
+    this.interactive = true
+    this.on( 'mousewheel', ( e ) => {
+      e.stopPropagation()
+      let scale = Math.max( 0.2, Math.min( this.scale.x, this.scale.y ) + e.deltaY / -100 )
+      this.scale.set( scale )
+    } )
   }
 
   __move () {

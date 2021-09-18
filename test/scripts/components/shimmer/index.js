@@ -1,11 +1,12 @@
 'use strict'
 
-import { rnd, loop } from '@crispcode/modux'
+import { approx, rnd, loop } from '@crispcode/modux'
 
 import { Shimmer } from './../../../../scripts'
 
 import { ButtonMain } from './buttonMain.js'
 import { Moon } from './moon.js'
+import { Debug } from './debug.js'
 
 export class ShimmerComponent extends Shimmer {
   onResize ( width, height ) {
@@ -30,8 +31,6 @@ export class ShimmerComponent extends Shimmer {
   }
 
   execute () {
-    this.ticker.start()
-
     this.preload( {
       'image1': '/image1.png',
       'image2': '/image2.png'
@@ -48,6 +47,7 @@ export class ShimmerComponent extends Shimmer {
           moon.setRadius( rnd( 200, 500 ) )
           moon.setSpeed( rnd( 10, 50 ) / 10 )
           moon.setCenter( this.__button.x, this.__button.y )
+          moon.scale.set( rnd( 1, 2 ) )
 
           this.stage.addElementChild( 'moon' + i, moon )
 
@@ -71,7 +71,17 @@ export class ShimmerComponent extends Shimmer {
           } )
         } )
 
+        this.__debug = new Debug( this.store )
+        this.stage.addElementChild( 'debug', this.__debug )
+
         this.onResize( this.element.clientWidth, this.element.clientHeight )
+
+        this.ticker.start()
+
+        this.ticker.add( ( delta ) => {
+          this.store.set( 'action.webgl', this.renderer.context.webGLVersion || false )
+          this.store.set( 'action.delta', approx( delta, 4 ) )
+        } )
       } )
   }
 }
