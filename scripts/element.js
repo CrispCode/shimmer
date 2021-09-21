@@ -47,13 +47,6 @@ export class Element extends Container {
      * @private
      */
     this.__children = {}
-
-    /**
-     * The modux application databus
-     * @type {Class}
-     * @private
-     */
-    this.__databus = null
   }
 
   /**

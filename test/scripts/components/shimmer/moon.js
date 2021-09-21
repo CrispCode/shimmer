@@ -34,10 +34,15 @@ export class Moon extends Element {
     this.__rotating = false
 
     this.interactive = true
-    this.on( 'mousewheel', ( e ) => {
-      e.stopPropagation()
+
+    this.on( 'wheel', ( e ) => {
+      e.preventDefault()
       let scale = Math.max( 0.2, Math.min( this.scale.x, this.scale.y ) + e.deltaY / -100 )
       this.scale.set( scale )
+    } )
+    this.on( 'longtap', ( e ) => {
+      e.preventDefault()
+      this.scale.set( 1 )
     } )
   }
 

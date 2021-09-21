@@ -23,6 +23,7 @@ import { CanvasSpriteRenderer } from '@pixi/canvas-sprite'
 import '@pixi/canvas-text'
 
 import { Element } from './element.js'
+import { Controls } from './controls.js'
 
 Renderer.registerPlugin( 'interaction', InteractionManager )
 Renderer.registerPlugin( 'batch', BatchRenderer )
@@ -172,15 +173,12 @@ export class Shimmer extends Component {
       logger.warn( 'WebGL is not supported. Using Canvas fallback.' )
     }
 
-    this._onWheel = ( e ) => {
-      // Find the element targeted based on the hitTest
-      let target = this.renderer.plugins.interaction.hitTest( { x: e.offsetX, y: e.offsetY } )
-      if ( target && target.interactive ) {
-        e.preventDefault()
-        target.emit( 'mousewheel', e )
-      }
-    }
-    this.element.addEventListener( 'wheel', this._onWheel, { passive: false } )
+    /**
+     * Stores the controls class, responsible with implementing special gestures
+     */
+    this.controls = new Controls( this.renderer )
+    this.controls.enableWheel()
+    this.controls.enableLongtap()
   }
 
   /**
@@ -188,7 +186,8 @@ export class Shimmer extends Component {
    */
   __destroy () {
     super.__destroy()
-    this.element.removeEventListener( 'wheel', this._onWheel )
+    this.controls.destroy()
+    // this.element.removeEventListener( 'wheel', this._onWheel )
     this.__resizeWatcher = false
     if ( this.ticker.started ) {
       this.ticker.stop()
