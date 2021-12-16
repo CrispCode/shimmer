@@ -4,7 +4,7 @@ A PIXI.JS wrapper plugin for MODUX
 ## Installation
 
 ```
-npm install CrispCode/shimmer#v4.0.8 --save-dev
+npm install CrispCode/shimmer#v4.0.9 --save-dev
 ```
 
 ## Documentation & Testing
