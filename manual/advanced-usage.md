@@ -135,6 +135,7 @@ export class ShimmerComponent extends Shimmer {
     return {
       backgroundAlpha: 1,
       backgroundColor: 0xFFFF00,
+      forceCanvas: false
     }
   }
 

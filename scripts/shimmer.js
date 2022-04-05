@@ -163,7 +163,7 @@ export class Shimmer extends Component {
      * Stores the renderer
      * @type {Renderer}
      */
-    this.renderer = ( isWebGLSupported() ) ? autoDetectRenderer( rendererSettings ) : new CanvasRenderer( rendererSettings )
+    this.renderer = ( isWebGLSupported() && !this.settings.forceCanvas ) ? autoDetectRenderer( rendererSettings ) : new CanvasRenderer( rendererSettings )
 
     this.renderer.resize( this.element.clientWidth, this.element.clientHeight )
 
