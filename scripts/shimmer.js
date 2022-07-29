@@ -4,11 +4,12 @@
 
 import { Component, extend, loop, logger } from '@crispcode/modux'
 
-import { autoDetectRenderer, Renderer, BatchRenderer } from '@pixi/core'
-import { Loader } from '@pixi/loaders'
+import { autoDetectRenderer, BatchRenderer } from '@pixi/core'
+import { Assets } from '@pixi/assets'
 import { Ticker } from '@pixi/ticker'
 import { InteractionManager } from '@pixi/interaction'
 import { skipHello, isWebGLSupported } from '@pixi/utils'
+import { extensions } from '@pixi/extensions'
 
 // Canvas support
 import '@pixi/canvas-display'
@@ -25,15 +26,8 @@ import '@pixi/canvas-text'
 import { Element } from './element.js'
 import { Controls } from './controls.js'
 
-Renderer.registerPlugin( 'interaction', InteractionManager )
-Renderer.registerPlugin( 'batch', BatchRenderer )
-
-CanvasRenderer.registerPlugin( 'interaction', InteractionManager )
-CanvasRenderer.registerPlugin( 'extract', CanvasExtract )
-CanvasRenderer.registerPlugin( 'graphics', CanvasGraphicsRenderer )
-CanvasRenderer.registerPlugin( 'mesh', CanvasMeshRenderer )
-CanvasRenderer.registerPlugin( 'prepare', CanvasPrepare )
-CanvasRenderer.registerPlugin( 'sprite', CanvasSpriteRenderer )
+extensions.add( InteractionManager )
+extensions.add( BatchRenderer )
 
 /**
  * This class is used to create the shimmer component
@@ -66,19 +60,12 @@ export class Shimmer extends Component {
 
   /**
    * This method preloads a colection of assets
-   * @param {Object} assets A collection of assets
+   * @param {Object} bundle A collection of assets
    * @return {Promise} A promise which is resolved upon loading the assets. It resolves the loaded resources.
    */
-  preload ( assets ) {
-    let loader = new Loader()
-    return new Promise( ( resolve ) => {
-      loop( assets, ( data, name ) => {
-        loader.add( name, data )
-      } )
-      loader.load( ( loader, resources ) => {
-        resolve( resources )
-      } )
-    } )
+  preload ( bundle ) {
+    Assets.addBundle( 'bundle', bundle )
+    return Assets.loadBundle( 'bundle' )
   }
 
   /**
@@ -163,7 +150,17 @@ export class Shimmer extends Component {
      * Stores the renderer
      * @type {Renderer}
      */
-    this.renderer = ( isWebGLSupported() && !this.settings.forceCanvas ) ? autoDetectRenderer( rendererSettings ) : new CanvasRenderer( rendererSettings )
+    this.renderer = null
+    if ( isWebGLSupported() && !this.settings.forceCanvas ) {
+      this.renderer = autoDetectRenderer( rendererSettings )
+    } else {
+      extensions.add( CanvasExtract )
+      extensions.add( CanvasGraphicsRenderer )
+      extensions.add( CanvasMeshRenderer )
+      extensions.add( CanvasPrepare )
+      extensions.add( CanvasSpriteRenderer )
+      this.renderer = new CanvasRenderer( rendererSettings )
+    }
 
     this.renderer.resize( this.element.clientWidth, this.element.clientHeight )
 

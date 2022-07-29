@@ -7,6 +7,8 @@ import { Module, logger } from '@crispcode/modux'
 import { LayoutComponent } from './components/layout'
 import { ShimmerComponent } from './components/shimmer'
 
+import './../styles/index.scss'
+
 let initialize = () => {
   // Create application
   let app = new Module( 'app' )

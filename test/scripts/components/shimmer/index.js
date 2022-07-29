@@ -37,13 +37,13 @@ export class ShimmerComponent extends Shimmer {
       'image2': '/image2.png'
     } )
       .then( ( resources ) => {
-        this.__button = new ButtonMain( resources[ 'image1' ].texture )
+        this.__button = new ButtonMain( resources[ 'image1' ] )
         this.stage.addElementChild( 'button', this.__button )
 
         this.__moons = {}
 
         for ( let i = 0; i < 20; i++ ) {
-          let moon = new Moon( resources[ 'image2' ].texture )
+          let moon = new Moon( resources[ 'image2' ] )
           moon.setAngle( rnd( 0, 359 ) )
           moon.setRadius( rnd( 200, 500 ) )
           moon.setSpeed( rnd( 10, 50 ) / 10 )
