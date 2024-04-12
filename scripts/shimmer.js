@@ -2,7 +2,7 @@
 
 'use strict'
 
-import { Component, extend, loop, logger } from '@crispcode/modux'
+import { Component, extend, logger } from '@crispcode/modux'
 
 import { autoDetectRenderer, BatchRenderer } from '@pixi/core'
 import { Assets } from '@pixi/assets'

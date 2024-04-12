@@ -1,6 +1,6 @@
 {
   "name": "@crispcode/shimmer",
-  "version": "5.0.3",
+  "version": "5.1.0",
   "description": "A PIXI.JS wrapper plugin for MODUX",
   "author": "Crisp Code ( contact@crispcode.ro )",
   "access": "public",
@@ -49,7 +49,7 @@
     "@pixi/utils": "^6.5.1"
   },
   "peerDependencies": {
-    "@crispcode/modux": "^5.1.1"
+    "@crispcode/modux": "^5.1.5"
   },
   "devDependencies": {
     "esdoc": "^1.1.0",

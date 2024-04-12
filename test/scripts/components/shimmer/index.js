@@ -2,7 +2,7 @@
 
 import { approx, rnd, loop } from '@crispcode/modux'
 
-import { Shimmer } from './../../../../scripts'
+import { Shimmer, Video } from './../../../../scripts'
 
 import { ButtonMain } from './buttonMain.js'
 import { Moon } from './moon.js'
@@ -37,6 +37,9 @@ export class ShimmerComponent extends Shimmer {
       'image2': '/image2.png'
     } )
       .then( ( resources ) => {
+        this.__background = new Video( '/movie.mp4', { loop: false, autoPlay: true, muted: true } )
+        this.stage.addElementChild( 'background', this.__background )
+
         this.__button = new ButtonMain( resources[ 'image1' ] )
         this.stage.addElementChild( 'button', this.__button )
 

@@ -5,6 +5,7 @@ import { Shimmer } from './shimmer.js'
 import { Button } from './button.js'
 import { Element } from './element.js'
 import { Tween } from './tween.js'
+import { Video } from './video.js'
 
 import { Sprite } from '@pixi/sprite'
 import { AnimatedSprite } from '@pixi/sprite-animated'
@@ -18,6 +19,7 @@ export {
   Button,
   Element,
   Tween,
+  Video,
 
   Sprite,
   AnimatedSprite,
