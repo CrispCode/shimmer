@@ -9,6 +9,8 @@ import { Element } from './element.js'
 
 /**
  * This class is used to create video elements for shimmer
+ * @param {Video|String} video The source Video element or url
+ * @param {Object} options The options for the video
  */
 export class Video extends Element {
   /**
@@ -17,15 +19,17 @@ export class Video extends Element {
   constructor ( source, options = {} ) {
     super()
 
-    this.__source = document.createElement( 'video' )
-    this.__source.playsInline = true
-    this.__source.preload = 'auto'
-    this.__source.autoplay = false
-    this.__source.playbackRate = ( options.playbackRate !== undefined ) ? options.playbackRate : 1
-    this.__source.muted = ( options.muted !== undefined ) ? options.muted : false
-
-    this.__source.loop = ( options.loop !== undefined ) ? options.loop : true
-    this.__source.src = source
+    if ( typeof source === Video ) {
+      this.__source = document.createElement( 'video' )
+      this.__source.playsInline = true
+      this.__source.preload = 'auto'
+      this.__source.autoplay = false
+      this.__source.muted = ( options.muted !== undefined ) ? options.muted : false
+      this.__source.loop = ( options.loop !== undefined ) ? options.loop : true
+      this.__source.src = source
+    } else {
+      this.__source = source
+    }
 
     this.__resource = new VideoResource( this.__source, {
       autoPlay: ( options.autoPlay !== undefined ) ? options.autoPlay : false,
