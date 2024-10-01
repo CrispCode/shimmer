@@ -59,11 +59,12 @@ export class Shimmer extends Component {
   /**
    * This method preloads a colection of assets
    * @param {Object} bundle A collection of assets
+   * @param {Function} progress A callback to track progress
    * @return {Promise} A promise which is resolved upon loading the assets. It resolves the loaded resources.
    */
-  preload ( bundle ) {
+  preload ( bundle, progress = () =>{} ) {
     Assets.addBundle( 'bundle', bundle )
-    return Assets.loadBundle( 'bundle' )
+    return Assets.loadBundle( 'bundle', progress )
   }
 
   /**
