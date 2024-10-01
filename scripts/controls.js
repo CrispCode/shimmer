@@ -1,12 +1,16 @@
 'use strict'
 
+import { EventBoundary } from "@pixi/events"
+
 export class Controls {
   /**
     * The pixi application renderer
     * @param {Renderer} renderer
+    * @param {DisplayObject} stage
     */
-  constructor ( renderer ) {
+  constructor ( renderer, stage ) {
     this.__renderer = renderer
+    this.__stage = stage
     this.__listeners = []
   }
 
@@ -26,8 +30,9 @@ export class Controls {
    * @returns {DisplayObject}
    */
   __getTarget ( x, y ) {
-    let target = this.__renderer.plugins.interaction.hitTest( { x: x, y: y } )
-    if ( target && target.interactive ) {
+    const boundary = new EventBoundary(this.__stage);
+    let target = boundary.hitTest(x, y);
+    if ( target && target.eventMode == 'static' ) {
       return target
     }
     return null
@@ -39,7 +44,7 @@ export class Controls {
   enableWheel () {
     let onPush = ( e ) => {
       let target = this.__getTarget( e.offsetX, e.offsetY )
-      if ( target && target.interactive ) {
+      if ( target && target.eventMode == 'static' ) {
         target.emit( this.__getEventName( 'wheel' ), e )
       }
     }
@@ -57,7 +62,7 @@ export class Controls {
     let onPush = ( e ) => {
       let target = this.__getTarget( e.offsetX, e.offsetY )
       let timeout = null
-      if ( target && target.interactive ) {
+      if ( target && target.eventMode == 'static' ) {
         timeout = setTimeout( () => {
           target.emit( this.__getEventName( 'longtap' ), e )
         }, 700 )

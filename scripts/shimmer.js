@@ -7,8 +7,7 @@ import { Component, extend, logger } from '@crispcode/modux'
 import { autoDetectRenderer, BatchRenderer } from '@pixi/core'
 import { Assets } from '@pixi/assets'
 import { Ticker } from '@pixi/ticker'
-import { InteractionManager } from '@pixi/interaction'
-import { skipHello, isWebGLSupported } from '@pixi/utils'
+import { isWebGLSupported } from '@pixi/utils'
 import { extensions } from '@pixi/extensions'
 
 // Canvas support
@@ -26,7 +25,6 @@ import '@pixi/canvas-text'
 import { Element } from './element.js'
 import { Controls } from './controls.js'
 
-extensions.add( InteractionManager )
 extensions.add( BatchRenderer )
 
 /**
@@ -76,8 +74,6 @@ export class Shimmer extends Component {
    */
   constructor ( parent, module, store ) {
     super( parent, module, store )
-
-    skipHello()
 
     /**
      * Stores the parent Element
@@ -164,8 +160,6 @@ export class Shimmer extends Component {
 
     this.renderer.resize( this.element.clientWidth, this.element.clientHeight )
 
-    this.renderer.plugins.interaction.autoPreventDefault = false
-
     if ( !isWebGLSupported() ) {
       logger.warn( 'WebGL is not supported. Using Canvas fallback.' )
     }
@@ -173,7 +167,7 @@ export class Shimmer extends Component {
     /**
      * Stores the controls class, responsible with implementing special gestures
      */
-    this.controls = new Controls( this.renderer )
+    this.controls = new Controls( this.renderer, this.stage )
     this.controls.enableWheel()
     this.controls.enableLongtap()
   }

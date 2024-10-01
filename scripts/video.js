@@ -19,12 +19,12 @@ export class Video extends Element {
   constructor ( source, options = {} ) {
     super()
 
-    if ( typeof source === Video ) {
+    if ( typeof source !== Video ) {
       this.__source = document.createElement( 'video' )
       this.__source.playsInline = true
       this.__source.preload = 'auto'
       this.__source.autoplay = false
-      this.__source.muted = ( options.muted !== undefined ) ? options.muted : false
+      this.__source.muted = ( options.muted !== undefined ) ? options.muted : true
       this.__source.loop = ( options.loop !== undefined ) ? options.loop : true
       this.__source.src = source
     } else {

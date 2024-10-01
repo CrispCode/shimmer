@@ -18,7 +18,7 @@ export class Button extends Element {
      * Marks the Button as interactive
      * @type {Boolean}
      */
-    this.interactive = true
+    this.eventMode = 'static'
     /**
      * Marks the Button as a button
      * @type {Boolean}
@@ -86,10 +86,10 @@ export class Button extends Element {
   enable ( enabled ) {
     this.__enabled = !!enabled
     if ( enabled ) {
-      this.interactive = true
+      this.eventMode = 'static'
       this.buttonMode = true
     } else {
-      this.interactive = false
+      this.eventMode = 'auto'
       this.buttonMode = false
     }
   }

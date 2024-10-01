@@ -14,10 +14,6 @@ Clone the shimmer repository to your machine and use the following commands:
 To generate a documentation use `npm run docs`
 If you want to check functionality you can use `npm run test` 
 
-## Polyfill
-
-In order to support older versions of browsers, you can use [polyfill.io](https://polyfill.io)
-
 ## Shimmer classes
 
   |Name|Usage|Description|
